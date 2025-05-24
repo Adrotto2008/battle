@@ -80,7 +80,7 @@ public class Personaggio {
         Random rand = new Random();
         int scelta;
 
-        System.out.println("--------------------------------------");
+        System.out.println("-------------------55-------------------");
         if(!player.prof){
             do{
                 System.out.println("Turno di " + player.nome + "!!\n");
