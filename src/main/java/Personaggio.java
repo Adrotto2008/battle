@@ -1,6 +1,8 @@
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -18,13 +20,14 @@ public class Personaggio {
     private float speed;
     private float sp;
     private boolean prof;
+    private float domain_expansion;
 
     //variabili globali
     private static boolean prima_mossa = true;
     private static int turno_di;
 
     //inizializzazione variabili
-    public Personaggio (String nome,  float hp, float atk, float def, float speed, float sp, boolean prof) {
+    public Personaggio (String nome,  float hp, float atk, float def, float speed, float sp, float domain_expansion, boolean prof) {
         this.nome = nome;
         this.hp = hp;
         this.atk = atk;
@@ -32,6 +35,7 @@ public class Personaggio {
         this.def_aggiunta = 0;
         this.speed = speed;
         this.sp = sp;
+        this.domain_expansion = domain_expansion;
         this.prof = prof;
     }
 
@@ -49,18 +53,24 @@ public class Personaggio {
         System.out.println("descrizione : ");
     }
 
-    public static void attack(Personaggio attaccante, Personaggio difesa, boolean show) {
-        float danno = attaccante.atk - (difesa.def + difesa.def_aggiunta);
+    public static void attack(Personaggio attaccante, Personaggio difesa, boolean show, float attacco_aggiuntivo) {
+        float danno = attaccante.atk - (difesa.def + difesa.def_aggiunta) + attacco_aggiuntivo;
         difesa.def_aggiunta = 0;
+        attaccante.sp += 20;
         if (danno < 0) danno = 0;
         difesa.hp = Math.max(0, difesa.hp - danno);
         if (show) {
+            System.out.println(attaccante.nome + " ha guadagnato 20 punti speciali!");
             System.out.println(attaccante.nome + " ha effettuato " + (danno) + " di danno a " + difesa.nome);
         }
     }
 
     public static void attack(Personaggio attaccante, Personaggio difesa) {
         attack(attaccante, difesa, false);
+    }
+
+    public static void attack(Personaggio attaccante, Personaggio difesa, boolean show) {
+        attack(attaccante, difesa, show, 0);
     }
 
     public static void defend(Personaggio difesa, boolean show) {
@@ -80,56 +90,96 @@ public class Personaggio {
         Random rand = new Random();
         int scelta;
 
-        System.out.println("-------------------55-------------------");
+        System.out.println("--------------------------------------");
         if(!player.prof){
-            do{
+            while(true){
                 System.out.println("Turno di " + player.nome + "!!\n");
                 System.out.println("1. Attacco");
                 System.out.println("2. Difesa");
                 System.out.println("3. Attacco speciale");
                 System.out.println("4. Informazioni");
                 System.out.println("5. Analisi");
+                if(player.domain_expansion >= 100){ System.out.println("6. DOMAIN EXPANSION"); }
                 System.out.println("Seleziona un'azione: ");
 
                 scelta = scanner.nextInt();
 
                 if (scelta == 1) {
                     attack(player, player2, true);
+                    break;
                 } else if (scelta == 2) {
                     defend(player, true);
+                    break;
                 } else if (scelta == 3) {
-                    // Implementare attacco speciale
+                    if(player.sp < 100) {
+                        System.out.println("Punti speciali insufficienti!");
+                        Thread.sleep(1000);
+                        continue;
+                    } else {
+                        elenco_attacchi_speciali(player, player2);
+                    }
+                    break;
                 } else if (scelta == 4) {
                     player.stats();
                     System.out.println("\nPremi un tasto per continuare...");
                     scanner.nextLine();
                     scanner.nextLine();
+                    continue;
                 } else if (scelta == 5){
                     player2.stats();
                     System.out.println("\nPremi un tasto per continuare...");
                     scanner.nextLine();
                     scanner.nextLine();
+                    continue;
+                } else if (scelta == 6){
+                    if(player.domain_expansion < 100){
+                        System.out.println("BLOCCATO!!");
+                        Thread.sleep(1000);
+                        continue;
+                    }  else {
+                        elenco_domain_expansion(player, player2);
+                    }
                 }
-                Thread.sleep(1000);///
-            }while(scelta != 1 && scelta != 2 && scelta != 3);
+            }
 
         } else {
 
-                scelta = rand.nextInt(2) + 1;
+            while(true){
+                scelta = rand.nextInt(7) + 1;
 
                 if (scelta == 1) {
-                    System.out.println(player2.nome + " ha deciso di attaccare!");
                     attack(player, player2, true);
+                    break;
                 } else if (scelta == 2) {
-                    System.out.println(player2.nome + " ha deciso di difendersi!");
                     defend(player, true);
+                    break;
                 } else if (scelta == 3) {
-                // Implementare attacco speciale
+                    if(player.sp < 100) {
+                        System.out.println("Punti speciali insufficienti!");
+                        Thread.sleep(1000);
+                        continue;
+                    } else {
+                        elenco_attacchi_speciali(player, player2);
+                    }
+                    break;
                 } else if (scelta == 4) {
-
+                    continue;
+                } else if (scelta == 5){
+                    continue;
+                } else if (scelta == 6){
+                    if(player.domain_expansion < 100){
+                        //System.out.println("BLOCCATO!!");
+                        //Thread.sleep(1000);
+                        continue;
+                    }  else {
+                        elenco_domain_expansion(player, player2);
+                    }
                 }
-        }
+            }
 
+        }
+        player.domain_expansion += 10;
+        System.out.println(player.nome + " ha guadagnato 10 punti per la domain expansion!");
         System.out.println("--------------------------------------");
     }
     
@@ -168,6 +218,26 @@ public class Personaggio {
 
     public static int battle(Personaggio player1, Personaggio player2) throws InterruptedException {
         return battle(player1, player2, null, null);
+    }
+
+    public static void elenco_attacchi_speciali(Personaggio player, Personaggio difesa){
+
+        player.sp = 0;
+        if(Objects.equals(player.nome, "Palmeri")){
+        Attacchi_speciali.attacco_speciale1(player, difesa);
+        }
+
+
+
+
+    }
+
+    public static void elenco_domain_expansion(Personaggio player, Personaggio difesa){
+
+        player.domain_expansion = 0;
+        if(Objects.equals(player.nome, "Palmeri")){
+
+        }
     }
 
 }

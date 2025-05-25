@@ -14,24 +14,21 @@ public class Main {
 
         // GIOCATORI
         Personaggio player    = new Personaggio();
-        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 60, false);
-        Personaggio maruca    = new Personaggio("Maruca",    100, 40, 10, 20,100, false);
-        Personaggio tanta     = new Personaggio("Tanta",     100, 40, 10, 20, 60, false);
-        Personaggio evan      = new Personaggio("Evan",      100, 40, 10, 20, 60, false);
-        Personaggio simo      = new Personaggio("Simo",      100, 40, 10, 40, 60, false);
-        Personaggio corvo     = new Personaggio("Corvo",     100, 40, 10, 30, 60, false);
+        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 10, 80, false);
+        Personaggio maruca    = new Personaggio("Maruca",    100, 40, 10, 20, 100,10, false);
+        Personaggio tanta     = new Personaggio("Tanta",     100, 40, 10, 20, 60, 10, false);
+        Personaggio evan      = new Personaggio("Evan",      100, 40, 10, 20, 60, 10, false);
+        Personaggio simo      = new Personaggio("Simo",      100, 40, 10, 40, 60, 10, false);
+        Personaggio corvo     = new Personaggio("Corvo",     100, 40, 10, 30, 60, 10, false);
 
         // NEMICI
         Personaggio nemico;
-        Personaggio cerello     = new Personaggio("Cerello",    100, 40, 10, 20, 60, true);
-        Personaggio micheletti  = new Personaggio("Micheletti", 100, 40, 10, 20,120, true);
-        Personaggio tacca       = new Personaggio("Tacca",      100, 40, 10, 20, 60, true);
-        Personaggio mora        = new Personaggio("Mora",       100, 40, 10, 40, 60, true);
-        Personaggio scampini    = new Personaggio("Scampini",   100, 40, 10, 20, 60, true);
-        Personaggio majnetti    = new Personaggio("Majnetti",   100, 40, 10, 30, 60, true);
-
-
-
+        Personaggio cerello     = new Personaggio("Cerello",    100, 40, 10, 20, 60, 10, true);
+        Personaggio micheletti  = new Personaggio("Micheletti", 100, 40, 10, 20,120, 10, true);
+        Personaggio tacca       = new Personaggio("Tacca",      100, 40, 10, 20, 40, 10, true);
+        Personaggio mora        = new Personaggio("Mora",       100, 40, 10, 40, 60, 10, true);
+        Personaggio scampini    = new Personaggio("Scampini",   100, 40, 10, 20, 60, 10, true);
+        Personaggio majnetti    = new Personaggio("Majnetti",   100, 40, 10, 30, 60, 10, true);
 
 
         do {
