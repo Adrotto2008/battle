@@ -14,6 +14,7 @@ public class Personaggio {
     //variabili personali
     private String nome;
     private float hp;
+    private float hp_backup;
     private float atk;
     private float precisione;
     private float def;
@@ -23,6 +24,8 @@ public class Personaggio {
     private boolean prof;
     private float domain_expansion;
 
+    private float percentuale_gambler;
+
     //variabili globali
     private static boolean prima_mossa = true;
     private static int turno_di;
@@ -31,6 +34,7 @@ public class Personaggio {
     public Personaggio (String nome,  float hp, float atk, float def, float speed, float sp, float domain_expansion, boolean prof) {
         this.nome = nome;
         this.hp = hp;
+        this.hp_backup = hp;
         this.atk = atk;
         this.precisione = 100;
         this.def = def;
@@ -39,6 +43,8 @@ public class Personaggio {
         this.sp = sp;
         this.domain_expansion = domain_expansion;
         this.prof = prof;
+
+        this.percentuale_gambler = 40;
     }
 
     public void stats() {
@@ -249,9 +255,6 @@ public class Personaggio {
             case "Majnetti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
         }
 
-
-
-
     }
 
     public static void elenco_domain_expansion(Personaggio player, Personaggio difesa){
@@ -274,6 +277,8 @@ public class Personaggio {
             case "Majnetti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
         }
 
+
     }
+
 
 }
