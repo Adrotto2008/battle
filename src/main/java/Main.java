@@ -14,7 +14,7 @@ public class Main {
 
         // GIOCATORI
         Personaggio player    = new Personaggio();
-        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 10, 80, false);
+        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 100, 80, false);
         Personaggio maruca    = new Personaggio("Maruca",    100, 40, 10, 20, 100,10, false);
         Personaggio tanta     = new Personaggio("Tanta",     100, 40, 10, 20, 60, 10, false);
         Personaggio evan      = new Personaggio("Evan",      100, 40, 10, 20, 60, 10, false);
@@ -104,13 +104,16 @@ public class Main {
 
         int turno = 1;
         int esito;
-        System.out.println("\n1 turno : ");
 
-        do{
-            esito = Personaggio.battle(player, nemico, null, null);
+
+        System.out.println("\n1 turno : ");
+        esito = Personaggio.battle(player, nemico, null, null);
+
+        while( nemico.getHp() > 0 && player.getHp() > 0 ){
             System.out.println("\n" + turno + " turno finito, " + (turno + 1) + " turno : ");
+            esito = Personaggio.battle(player, nemico, null, null);
             turno++;
-        }while( nemico.getHp() > 0 && player.getHp() > 0 );
+        }
 
 
 

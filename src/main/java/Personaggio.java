@@ -15,6 +15,7 @@ public class Personaggio {
     private String nome;
     private float hp;
     private float atk;
+    private float precisione;
     private float def;
     private float def_aggiunta;
     private float speed;
@@ -31,6 +32,7 @@ public class Personaggio {
         this.nome = nome;
         this.hp = hp;
         this.atk = atk;
+        this.precisione = 100;
         this.def = def;
         this.def_aggiunta = 0;
         this.speed = speed;
@@ -54,14 +56,19 @@ public class Personaggio {
     }
 
     public static void attack(Personaggio attaccante, Personaggio difesa, boolean show, float attacco_aggiuntivo) {
-        float danno = attaccante.atk - (difesa.def + difesa.def_aggiunta) + attacco_aggiuntivo;
-        difesa.def_aggiunta = 0;
-        attaccante.sp += 20;
-        if (danno < 0) danno = 0;
-        difesa.hp = Math.max(0, difesa.hp - danno);
-        if (show) {
-            System.out.println(attaccante.nome + " ha guadagnato 20 punti speciali!");
-            System.out.println(attaccante.nome + " ha effettuato " + (danno) + " di danno a " + difesa.nome);
+        Random rand = new Random();
+        if(rand.nextInt(99) + 1 >= attaccante.precisione) {
+            System.out.println("Attacco fallito!");
+        } else {
+            float danno = attaccante.atk - (difesa.def + difesa.def_aggiunta) + attacco_aggiuntivo;
+            difesa.def_aggiunta = 0;
+            attaccante.sp += 20;
+            if (danno < 0) danno = 0;
+            difesa.hp = Math.max(0, difesa.hp - danno);
+            if (show) {
+                System.out.println(attaccante.nome + " ha effettuato " + (danno) + " di danno a " + difesa.nome);
+                System.out.println(attaccante.nome + " ha guadagnato 20 punti speciali!");
+            }
         }
     }
 
@@ -144,19 +151,21 @@ public class Personaggio {
 
         } else {
 
-            while(true){
+            while(true){ // scusa scampini
                 scelta = rand.nextInt(7) + 1;
 
                 if (scelta == 1) {
+                    System.out.println(player.nome + " attacca!");
                     attack(player, player2, true);
                     break;
                 } else if (scelta == 2) {
+                    System.out.println(player.nome + " si difende!");
                     defend(player, true);
                     break;
                 } else if (scelta == 3) {
                     if(player.sp < 100) {
-                        System.out.println("Punti speciali insufficienti!");
-                        Thread.sleep(1000);
+                        //System.out.println("Punti speciali insufficienti!");
+                        //Thread.sleep(1000);
                         continue;
                     } else {
                         elenco_attacchi_speciali(player, player2);
@@ -223,8 +232,21 @@ public class Personaggio {
     public static void elenco_attacchi_speciali(Personaggio player, Personaggio difesa){
 
         player.sp = 0;
-        if(Objects.equals(player.nome, "Palmeri")){
-        Attacchi_speciali.attacco_speciale1(player, difesa);
+        switch (player.nome) {
+            // GIOCATORI
+            case "Palmeri" -> Attacchi_speciali.sfortuna_cieca(player, difesa);
+            case "Maruca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Tanta" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Evan" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Simo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Corvo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            // PROF
+            case "Cerello" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Micheletti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Tacca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Mora" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Scampini" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Majnetti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
         }
 
 
@@ -235,9 +257,23 @@ public class Personaggio {
     public static void elenco_domain_expansion(Personaggio player, Personaggio difesa){
 
         player.domain_expansion = 0;
-        if(Objects.equals(player.nome, "Palmeri")){
-
+        switch (player.nome) {
+            // GIOCATORI
+            case "Palmeri" -> Attacchi_speciali.sfortuna_cieca(player, difesa);
+            case "Maruca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Tanta" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Evan" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Simo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Corvo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            // PROF
+            case "Cerello" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Micheletti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Tacca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Mora" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Scampini" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Majnetti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
         }
+
     }
 
 }
