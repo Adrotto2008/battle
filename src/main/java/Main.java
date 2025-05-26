@@ -14,7 +14,7 @@ public class Main {
 
         // GIOCATORI
         Personaggio player    = new Personaggio();
-        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 100, 80, false);
+        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 100, 100, false);
         Personaggio maruca    = new Personaggio("Maruca",    100, 40, 10, 20, 100,10, false);
         Personaggio tanta     = new Personaggio("Tanta",     100, 40, 10, 20, 60, 10, false);
         Personaggio evan      = new Personaggio("Evan",      100, 40, 10, 20, 60, 10, false);

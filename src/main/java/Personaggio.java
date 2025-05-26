@@ -51,6 +51,7 @@ public class Personaggio {
         System.out.println("nome : " + this.nome);
         System.out.println("hp : " + this.hp);
         System.out.println("attack : " + this.atk);
+        System.out.println("precisione : " + this.precisione);
         System.out.print("defense : " + this.def);
         if(this.def_aggiunta > 0){ System.out.println(" + " +  this.def_aggiunta); } else { System.out.print("\n"); }
         System.out.println("speed : " + this.speed);
@@ -257,12 +258,12 @@ public class Personaggio {
 
     }
 
-    public static void elenco_domain_expansion(Personaggio player, Personaggio difesa){
+    public static void elenco_domain_expansion(Personaggio player, Personaggio difesa) throws InterruptedException {
 
         player.domain_expansion = 0;
         switch (player.nome) {
             // GIOCATORI
-            case "Palmeri" -> Attacchi_speciali.sfortuna_cieca(player, difesa);
+            case "Palmeri" -> Domain_expansion.gambler_nato(player, difesa);
             case "Maruca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
             case "Tanta" -> Attacchi_speciali.attacco_speciale2(player, difesa);
             case "Evan" -> Attacchi_speciali.attacco_speciale2(player, difesa);
