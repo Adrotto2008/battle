@@ -2,8 +2,10 @@ import java.util.Random;
 
 public class Domain_expansion {
 
-    public static void circuito_aperto() {
-
+    public static void circuito_aperto(Personaggio attaccante, Personaggio difesa) {
+        System.out.println("Micheletti usa la sua DOMAIN EXPANSION : CIRCUITO APERTO!");
+        System.out.println("Adesso " + difesa.getNome() + " è talmente confuso da non poter agire per 3 turni!");
+        difesa.setTurno_bloccati(2);
     }
 
     public static void gambler_nato(Personaggio attaccante, Personaggio difesa) throws InterruptedException {

@@ -21,8 +21,9 @@ public class Main {
         Personaggio simo      = new Personaggio("Simo",      100, 40, 10, 40, 60, 10, false);
         Personaggio corvo     = new Personaggio("Corvo",     100, 40, 10, 30, 60, 10, false);
 
+
         // NEMICI
-        Personaggio nemico;
+        Personaggio nemico      = new Personaggio();
         Personaggio cerello     = new Personaggio("Cerello",    100, 40, 10, 20, 60, 10, true);
         Personaggio micheletti  = new Personaggio("Micheletti", 100, 40, 10, 20,120, 10, true);
         Personaggio tacca       = new Personaggio("Tacca",      100, 40, 10, 20, 40, 10, true);
