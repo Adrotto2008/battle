@@ -27,6 +27,7 @@ public class Main {
         System.out.println(player2.getNome());
         System.out.println(player3.getNome());
 
+        Thread.sleep(1000);
         // NEMICI
         Personaggio nemico      = new Personaggio();
         Personaggio nemico2     = new Personaggio();
@@ -41,15 +42,18 @@ public class Main {
         System.out.println("prof. " + nemico2.getNome());
         System.out.println("prof. " + nemico3.getNome());
 
-
+        Thread.sleep(1000);
 
 
         int turno = 1;
-        int esito;
+        int esito, punti_squadra1 = 0, punti_squadra2 = 0;
 
+
+        /// RIFAI TUTTO PIU OTTIMIZZATO E METTI CHE QUANDO UN PLAYER SOPRAVVIVE RIGIOCA
 
         System.out.println("\n1 turno : ");
         esito = Personaggio.battle(player, nemico, null, null);
+        Thread.sleep(1000);
 
         while( nemico.getHp() > 0 && player.getHp() > 0 ){
             System.out.println("\n" + turno + " turno finito, " + (turno + 1) + " turno : ");
@@ -58,13 +62,66 @@ public class Main {
         }
 
 
+        System.out.println("\nBattaglia finita!");
+        if(esito == 1){
+            System.out.println("\n" + nemico.getNome() + " è morto!");
+            System.out.println("\nEntra in campo " + nemico2.getNome() + "!");
+            punti_squadra1++;
+        } else if(esito == 2){
+            System.out.println("\n" + player.getNome() + " è morto!");
+            System.out.println("\nEntra in campo " + player2.getNome() + "!");
+            punti_squadra2++;
+        }
+
+        System.out.println("\n1 turno : ");
+        esito = Personaggio.battle(player2, nemico2, null, null);
+        Thread.sleep(1000);
+
+        while( nemico2.getHp() > 0 && player2.getHp() > 0 ){
+            System.out.println("\n" + turno + " turno finito, " + (turno + 1) + " turno : ");
+            esito = Personaggio.battle(player2, nemico2, null, null);
+            turno++;
+        }
+        System.out.println("\nBattaglia finita!");
+        if(esito == 1){
+            System.out.println("\n" + nemico2.getNome() + " è morto!");
+            System.out.println("\nEntra in campo " + nemico3.getNome() + "!");
+            punti_squadra1++;
+        } else if(esito == 2){
+            System.out.println("\n" + player2.getNome() + " è morto!");
+            System.out.println("\nEntra in campo " + player3.getNome() + "!");
+            punti_squadra2++;
+        }
+
+        System.out.println("\n1 turno : ");
+        esito = Personaggio.battle(player3, nemico3, null, null);
+        Thread.sleep(1000);
+
+        while( nemico3.getHp() > 0 && player3.getHp() > 0 ){
+            System.out.println("\n" + turno + " turno finito, " + (turno + 1) + " turno : ");
+            esito = Personaggio.battle(player3, nemico3, null, null);
+            turno++;
+        }
 
         System.out.println("\nBattaglia finita!");
         if(esito == 1){
-            System.out.println("\nHa vinto " + player.getNome() + "!");
+            System.out.println("\n" + nemico3.getNome() + " è morto!");
+            punti_squadra1++;
         } else if(esito == 2){
-            System.out.println("\nHa vinto " + nemico.getNome() + "!");
+            System.out.println("\n" + player3.getNome() + " è morto!");
+            punti_squadra2++;
         }
+
+        /// RIFAI TUTTO PIU OTTIMIZZATO E METTI CHE QUANDO UN PLAYER SOPRAVVIVE RIGIOCA
+
+
+
+        if(punti_squadra1 > punti_squadra2){
+            System.out.println("\nHai vinto!");
+        } else {
+            System.out.println("\nHai perso!");
+        }
+
 
     }
 
@@ -98,34 +155,28 @@ public class Main {
                 case 1 -> {
                     System.out.println("Hai scelto Palmeri!");
                     player = palmeri;
-                    break;
                 }
                 case 2 -> {
                     System.out.println("Hai scelto Maruca!");
                     player = maruca;
-                    break;
                 } case 3 -> {
                     System.out.println("Hai scelto Tanta!");
                     player = tanta;
-                    break;
                 } case 4 -> {
                     System.out.println("Hai scelto Evan!");
                     player = evan;
-                    break;
                 } case 5 -> {
                     System.out.println("Hai scelto Simo!");
                     player = simo;
-                    break;
                 } case 6 -> {
                     System.out.println("Hai scelto Corvo!");
                     player = corvo;
-                    break;
                 }
 
             }
-            if (player == eccezione1 || player == eccezione2) {
+            if ((eccezione1 != null && player.getNome().equals(eccezione1.getNome())) || (eccezione2 != null && player.getNome().equals(eccezione2.getNome()))) {
                 System.out.println("Hai già questo membro nella squadra!");
-                System.out.println("Scegli un altro personaggio :");
+                System.out.println("Scegli un altro personaggio:");
                 continue;
             } else {
                 break;
@@ -179,7 +230,9 @@ public class Main {
                 }
 
             };
-            if (prof == eccezione1 || prof == eccezione2) {
+            if ((eccezione1 != null && prof.getNome().equals(eccezione1.getNome())) || (eccezione2 != null && prof.getNome().equals(eccezione2.getNome()))) {
+                System.out.println("Hai già questo membro nella squadra!");
+                System.out.println("Scegli un altro personaggio:");
                 continue;
             } else {
                 break;
@@ -190,11 +243,9 @@ public class Main {
         return prof;
 
     }
-
     public static Personaggio scelta_prof(Random rand, int i){
         return scelta_prof(rand, i, null, null);
     }
-
     public static Personaggio scelta_prof(Random rand, int i, Personaggio eccezione1){
         return scelta_prof(rand, i, eccezione1, null);
     }

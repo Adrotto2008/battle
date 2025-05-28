@@ -126,6 +126,7 @@ public class Personaggio {
                     System.out.println("Seleziona un'azione: ");
 
                     scelta = scanner.nextInt();
+                    Thread.sleep(1000);
 
                     if (scelta == 1) {
                         attack(player, player2, true);
@@ -184,8 +185,8 @@ public class Personaggio {
                             continue;
                         } else {
                             elenco_attacchi_speciali(player, player2);
+                            break;
                         }
-                        break;
                     } else if (scelta == 4) {
                         continue;
                     } else if (scelta == 5) {
