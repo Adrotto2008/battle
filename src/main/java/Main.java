@@ -14,94 +14,35 @@ public class Main {
 
         // GIOCATORI
         Personaggio player    = new Personaggio();
-        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 100, 100, false);
-        Personaggio maruca    = new Personaggio("Maruca",    100, 40, 10, 20, 100,10, false);
-        Personaggio tanta     = new Personaggio("Tanta",     100, 40, 10, 20, 60, 10, false);
-        Personaggio evan      = new Personaggio("Evan",      100, 40, 10, 20, 60, 10, false);
-        Personaggio simo      = new Personaggio("Simo",      100, 40, 10, 40, 60, 10, false);
-        Personaggio corvo     = new Personaggio("Corvo",     100, 40, 10, 30, 60, 10, false);
+        Personaggio player2    = new Personaggio();
+        Personaggio player3    = new Personaggio();
 
+        player = scelta_personaggio(scanner, 1);
+        player2 = scelta_personaggio(scanner, 2, player);
+        player3 = scelta_personaggio(scanner, 3, player, player2);
+
+        System.out.print("\n\n");
+        System.out.println("La tua squadra è composta da : ");
+        System.out.println(player.getNome());
+        System.out.println(player2.getNome());
+        System.out.println(player3.getNome());
 
         // NEMICI
         Personaggio nemico      = new Personaggio();
-        Personaggio cerello     = new Personaggio("Cerello",    100, 40, 10, 20, 60, 10, true);
-        Personaggio micheletti  = new Personaggio("Micheletti", 100, 40, 10, 20,120, 10, true);
-        Personaggio tacca       = new Personaggio("Tacca",      100, 40, 10, 20, 40, 10, true);
-        Personaggio mora        = new Personaggio("Mora",       100, 40, 10, 40, 60, 10, true);
-        Personaggio scampini    = new Personaggio("Scampini",   100, 40, 10, 20, 60, 10, true);
-        Personaggio majnetti    = new Personaggio("Majnetti",   100, 40, 10, 30, 60, 10, true);
+        Personaggio nemico2     = new Personaggio();
+        Personaggio nemico3     = new Personaggio();
+
+        nemico = scelta_prof(rand, 1);
+        nemico2 = scelta_prof(rand, 2, nemico);
+        nemico3 = scelta_prof(rand, 3, nemico, nemico2);
+
+        System.out.println("La squadra avversaria è composta da : ");
+        System.out.println("prof. " + nemico.getNome());
+        System.out.println("prof. " + nemico2.getNome());
+        System.out.println("prof. " + nemico3.getNome());
 
 
-        do {
-            System.out.println("Scegli il tuo personaggio :");
-            System.out.println("1. Palmeri :");
-            System.out.println("2. Maruca :");
-            System.out.println("3. Tanta :");
-            System.out.println("4. Evan :");
-            System.out.println("5. Simo :");
-            System.out.println("6. Corvo :");
-            scelta = scanner.nextInt();
-        }while(scelta > 6 || scelta < 1);
 
-
-        player = switch (scelta) {
-            case 1 -> {
-                System.out.println("Hai scelto Palmeri!");
-                yield palmeri;
-            }
-            case 2 -> {
-                System.out.println("Hai scelto Maruca!");
-                yield maruca;
-            }
-            case 3 -> {
-                System.out.println("Hai scelto Tanta!");
-                yield tanta;
-            }
-            case 4 -> {
-                System.out.println("Hai scelto Evan!");
-                yield evan;
-            }
-            case 5 -> {
-                System.out.println("Hai scelto Simo!");
-                yield simo;
-            }
-            case 6 -> {
-                System.out.println("Hai scelto Corvo!");
-                yield corvo;
-            }
-            default -> player;
-        };
-
-        scelta = rand.nextInt(7);
-
-        nemico = switch (scelta) {
-
-            case 1 -> {
-                System.out.println("Il tuo nemico è il prof. Cerello!");
-                yield cerello;
-            }
-            case 2 -> {
-                System.out.println("Il tuo nemico è il prof. Micheletti!");
-                yield micheletti;
-            }
-            case 3 -> {
-                System.out.println("Il tuo nemico è il prof. Tacca!");
-                yield tacca;
-            }
-            case 4 -> {
-                System.out.println("Il tuo nemico è il prof. Mora!");
-                yield mora;
-            }
-            case 5 -> {
-                System.out.println("Il tuo nemico è il prof. Scampini!");
-                yield scampini;
-            }
-            default -> {
-                System.out.println("Il tuo nemico è la prof. Majnetti!");
-                yield majnetti;
-            }
-
-        };
 
         int turno = 1;
         int esito;
@@ -126,4 +67,136 @@ public class Main {
         }
 
     }
+
+
+    public static Personaggio scelta_personaggio(Scanner scanner, int i, Personaggio eccezione1, Personaggio eccezione2){
+        int scelta;
+
+        // GIOCATORI
+        Personaggio player    = new Personaggio();
+        Personaggio palmeri   = new Personaggio("Palmeri",   100, 40, 10, 20, 100, 100, false);
+        Personaggio maruca    = new Personaggio("Maruca",    100, 40, 10, 20, 100,10, false);
+        Personaggio tanta     = new Personaggio("Tanta",     100, 40, 10, 20, 60, 10, false);
+        Personaggio evan      = new Personaggio("Evan",      100, 40, 10, 20, 60, 10, false);
+        Personaggio simo      = new Personaggio("Simo",      100, 40, 10, 40, 60, 10, false);
+        Personaggio corvo     = new Personaggio("Corvo",     100, 40, 10, 30, 60, 10, false);
+
+        while(true) {
+            System.out.println("Scegli il tuo personaggio :");
+            System.out.println("1. Palmeri :");
+            System.out.println("2. Maruca :");
+            System.out.println("3. Tanta :");
+            System.out.println("4. Evan :");
+            System.out.println("5. Simo :");
+            System.out.println("6. Corvo :");
+            scelta = scanner.nextInt();
+            if (scelta > 6 || scelta < 1) {
+                System.out.println("Scelta non valida!");
+                continue;
+            }
+            switch (scelta) {
+                case 1 -> {
+                    System.out.println("Hai scelto Palmeri!");
+                    player = palmeri;
+                    break;
+                }
+                case 2 -> {
+                    System.out.println("Hai scelto Maruca!");
+                    player = maruca;
+                    break;
+                } case 3 -> {
+                    System.out.println("Hai scelto Tanta!");
+                    player = tanta;
+                    break;
+                } case 4 -> {
+                    System.out.println("Hai scelto Evan!");
+                    player = evan;
+                    break;
+                } case 5 -> {
+                    System.out.println("Hai scelto Simo!");
+                    player = simo;
+                    break;
+                } case 6 -> {
+                    System.out.println("Hai scelto Corvo!");
+                    player = corvo;
+                    break;
+                }
+
+            }
+            if (player == eccezione1 || player == eccezione2) {
+                System.out.println("Hai già questo membro nella squadra!");
+                System.out.println("Scegli un altro personaggio :");
+                continue;
+            } else {
+                break;
+            }
+
+
+        }
+        return player;
+
+    }
+    public static Personaggio scelta_personaggio(Scanner scanner, int i){
+        return scelta_personaggio(scanner, i, null, null);
+    }
+    public static Personaggio scelta_personaggio(Scanner scanner, int i, Personaggio eccezione1){
+        return scelta_personaggio(scanner, i, eccezione1, null);
+    }
+
+    public static Personaggio scelta_prof(Random rand, int i, Personaggio eccezione1, Personaggio eccezione2){
+        int scelta;
+        Personaggio prof = new Personaggio();
+
+        Personaggio cerello     = new Personaggio("Cerello",    100, 40, 10, 20, 60, 10, true);
+        Personaggio micheletti  = new Personaggio("Micheletti", 100, 40, 10, 20,120, 10, true);
+        Personaggio tacca       = new Personaggio("Tacca",      100, 40, 10, 20, 40, 10, true);
+        Personaggio mora        = new Personaggio("Mora",       100, 40, 10, 40, 60, 10, true);
+        Personaggio scampini    = new Personaggio("Scampini",   100, 40, 10, 20, 60, 10, true);
+        Personaggio majnetti    = new Personaggio("Majnetti",   100, 40, 10, 30, 60, 10, true);
+
+        while(true) {
+            scelta = rand.nextInt(7);
+
+            prof = switch (scelta) {
+
+                case 1 -> {
+                    yield cerello;
+                }
+                case 2 -> {
+                    yield micheletti;
+                }
+                case 3 -> {
+                    yield tacca;
+                }
+                case 4 -> {
+                    yield mora;
+                }
+                case 5 -> {
+                    yield scampini;
+                }
+                default -> {
+                    yield majnetti;
+                }
+
+            };
+            if (prof == eccezione1 || prof == eccezione2) {
+                continue;
+            } else {
+                break;
+            }
+
+        }
+
+        return prof;
+
+    }
+
+    public static Personaggio scelta_prof(Random rand, int i){
+        return scelta_prof(rand, i, null, null);
+    }
+
+    public static Personaggio scelta_prof(Random rand, int i, Personaggio eccezione1){
+        return scelta_prof(rand, i, eccezione1, null);
+    }
+
 }

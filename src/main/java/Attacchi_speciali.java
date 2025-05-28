@@ -18,4 +18,9 @@ public class Attacchi_speciali {
         Personaggio.attack(attaccante, difesa, true, 10);
     }
 
+    public static void trinomio_speciale(Personaggio attaccante, Personaggio difesa){
+        System.out.println("Attacco speciale!");
+        Personaggio.attack(attaccante, difesa, true, 10);
+    }
+
 }

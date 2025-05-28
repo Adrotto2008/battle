@@ -33,5 +33,10 @@ public class Domain_expansion {
         }
     }
 
+    public static void cerello_pose(){
+        System.out.println("Cerello usa la sua DOMAIN EXPANSION : CERELLO POSE!");
+
+    }
+
 
 }
