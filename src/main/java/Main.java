@@ -10,7 +10,8 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         Random rand = new Random();
-        System.out.println("ciao");
+
+        //stronzo
         // GIOCATORI
         Personaggio player = new Personaggio();
         Personaggio player2 = new Personaggio();
