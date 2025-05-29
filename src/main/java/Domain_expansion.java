@@ -16,6 +16,7 @@ public class Domain_expansion {
 
         if ( rand.nextInt(99) + 1 <= attaccante.getPercentuale_gambler() ) {
             System.out.println("7");
+            Thread.sleep(1500);
             System.out.println("Palmeri ha vinto il jackpot!");
             attaccante.setHp(attaccante.getHp() * 2);
             attaccante.setAtk(attaccante.getAtk() * 2);
@@ -24,6 +25,7 @@ public class Domain_expansion {
             attaccante.setSpeed(attaccante.getSpeed() * 2);
         } else {
             System.out.println(rand.nextInt(10));
+            Thread.sleep(1500);
             System.out.println("Palmeri non ha vinto il jackpot!");
             attaccante.setHp(attaccante.getHp() / 2);
             attaccante.setAtk(attaccante.getAtk() / 2);

@@ -120,8 +120,9 @@ public class Personaggio {
                     System.out.println("3. Attacco speciale");
                     System.out.println("4. Informazioni");
                     System.out.println("5. Analisi");
+                    System.out.println("6. cambio");
                     if (player.domain_expansion >= 100 && player.can_domain) {
-                        System.out.println("6. DOMAIN EXPANSION");
+                        System.out.println("7. DOMAIN EXPANSION");
                     }
                     System.out.println("Seleziona un'azione: ");
 
@@ -156,6 +157,9 @@ public class Personaggio {
                         scanner.nextLine();
                         continue;
                     } else if (scelta == 6) {
+                        System.out.println("con chi vuoi cambiare di turno?");
+                        
+                    } else if (scelta == 7) {
                         if (player.domain_expansion < 100) {
                             System.out.println("BLOCCATO!!");
                             Thread.sleep(1000);
