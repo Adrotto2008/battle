@@ -6,37 +6,40 @@ import java.util.Random;
 
 
 public class Main {
+    // GIOCATORI
+    public static Personaggio membro_squadra =  new Personaggio();
+    public static Personaggio membro_squadra2 = new Personaggio();
+    public static Personaggio membro_squadra3 = new Personaggio();
+    // NEMICI
+    public static Personaggio nemico = new Personaggio();
+    public static Personaggio nemico2 = new Personaggio();
+    public static Personaggio nemico3 = new Personaggio();
+
+    public static Personaggio giocatore_temp = new Personaggio();
+
     public static void main(String[] args) throws InterruptedException {
 
         Scanner scanner = new Scanner(System.in);
         Random rand = new Random();
 
-        //stronzo
         // GIOCATORI
-        Personaggio player = new Personaggio();
-        Personaggio player2 = new Personaggio();
-        Personaggio player3 = new Personaggio();
-
-        player = scelta_personaggio(scanner, 1);
+        membro_squadra = scelta_personaggio(scanner, 1);
         Thread.sleep(500);
-        player2 = scelta_personaggio(scanner, 2, player);
+        membro_squadra2 = scelta_personaggio(scanner, 2, membro_squadra);
         Thread.sleep(500);
-        player3 = scelta_personaggio(scanner, 3, player, player2);
+        membro_squadra3 = scelta_personaggio(scanner, 3, membro_squadra, membro_squadra2);
 
         System.out.print("\n\n");
         System.out.println("La tua squadra è composta da : ");
-        System.out.println(player.getNome());
+        System.out.println(membro_squadra.getNome());
         Thread.sleep(500);
-        System.out.println(player2.getNome());
+        System.out.println(membro_squadra2.getNome());
         Thread.sleep(500);
-        System.out.println(player3.getNome());
+        System.out.println(membro_squadra3.getNome());
 
         Thread.sleep(1500);
-        // NEMICI
-        Personaggio nemico = new Personaggio();
-        Personaggio nemico2 = new Personaggio();
-        Personaggio nemico3 = new Personaggio();
 
+        // NEMICI
         nemico = scelta_prof(rand, 1);
         Thread.sleep(500);
         nemico2 = scelta_prof(rand, 2, nemico);
@@ -57,15 +60,13 @@ public class Main {
         int esito, punti_squadra1 = 0, punti_squadra2 = 0;
 
 
-        /// RIFAI TUTTO PIU OTTIMIZZATO E METTI CHE QUANDO UN PLAYER SOPRAVVIVE RIGIOCA
-
         System.out.println("\n1 turno : ");
-        esito = Personaggio.battle(player, nemico, null, null);
+        esito = Personaggio.battle(membro_squadra, nemico, null, null);
         Thread.sleep(1500);
 
         while (true) {
             /// CONDIZIONI DI USCITA 
-            if (player.getHp() <= 0 && player2.getHp() <= 0 && player3.getHp() <= 0) { // muoiono tutti i giocatori
+            if (membro_squadra.getHp() <= 0 && membro_squadra2.getHp() <= 0 && membro_squadra3.getHp() <= 0) { // muoiono tutti i giocatori
                 System.out.println("Hai perso!");
                 break;
             }
@@ -77,99 +78,99 @@ public class Main {
             Thread.sleep(1000);
 
             /// CONDIZIONI DI BATTAGLIA
-            if (player.getHp() > 0) { // Combinazioni con player 1 vivo
+            if (membro_squadra.getHp() > 0) { // Combinazioni con player 1 vivo
                 if (nemico.getHp() > 0) {
-                    esito = Personaggio.battle(player, nemico, null, null);
+                    esito = Personaggio.battle(membro_squadra, nemico, null, null);
                     if (nemico.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player.getHp() <= 0) {
-                        System.out.println(player.getNome() + " è stato sconfitto!");
+                    if (membro_squadra.getHp() <= 0) {
+                        System.out.println(membro_squadra.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 } else if (nemico2.getHp() > 0) {
-                    esito = Personaggio.battle(player, nemico2, null, null);
+                    esito = Personaggio.battle(membro_squadra, nemico2, null, null);
                     if (nemico2.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico2.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player.getHp() <= 0) {
-                        System.out.println(player.getNome() + " è stato sconfitto!");
+                    if (membro_squadra.getHp() <= 0) {
+                        System.out.println(membro_squadra.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 } else if (nemico3.getHp() > 0) {
-                    esito = Personaggio.battle(player, nemico3, null, null);
+                    esito = Personaggio.battle(membro_squadra, nemico3, null, null);
                     if (nemico3.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico3.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player.getHp() <= 0) {
-                        System.out.println(player.getNome() + " è stato sconfitto!");
+                    if (membro_squadra.getHp() <= 0) {
+                        System.out.println(membro_squadra.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 }
-            } else if (player2.getHp() > 0) { // Combinazioni con player 2 vivo
+            } else if (membro_squadra2.getHp() > 0) { // Combinazioni con player 2 vivo
                 if (nemico.getHp() > 0) {
-                    esito = Personaggio.battle(player2, nemico, null, null);
+                    esito = Personaggio.battle(membro_squadra2, nemico, null, null);
                     if (nemico.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player2.getHp() <= 0) {
-                        System.out.println(player2.getNome() + " è stato sconfitto!");
+                    if (membro_squadra2.getHp() <= 0) {
+                        System.out.println(membro_squadra2.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 } else if (nemico2.getHp() > 0) {
-                    esito = Personaggio.battle(player2, nemico2, null, null);
+                    esito = Personaggio.battle(membro_squadra2, nemico2, null, null);
                     if (nemico2.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico2.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player2.getHp() <= 0) {
-                        System.out.println(player2.getNome() + " è stato sconfitto!");
+                    if (membro_squadra2.getHp() <= 0) {
+                        System.out.println(membro_squadra2.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 } else if (nemico3.getHp() > 0) {
-                    esito = Personaggio.battle(player2, nemico3, null, null);
+                    esito = Personaggio.battle(membro_squadra2, nemico3, null, null);
                     if (nemico3.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico3.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player2.getHp() <= 0) {
-                        System.out.println(player2.getNome() + " è stato sconfitto!");
+                    if (membro_squadra2.getHp() <= 0) {
+                        System.out.println(membro_squadra2.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 }
-            } else if (player3.getHp() > 0) { // Combinazioni con player 3 vivo
+            } else if (membro_squadra3.getHp() > 0) { // Combinazioni con player 3 vivo
                 if (nemico.getHp() > 0) {
-                    esito = Personaggio.battle(player3, nemico, null, null);
+                    esito = Personaggio.battle(membro_squadra3, nemico, null, null);
                     if (nemico.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player3.getHp() <= 0) {
-                        System.out.println(player3.getNome() + " è stato sconfitto!");
+                    if (membro_squadra3.getHp() <= 0) {
+                        System.out.println(membro_squadra3.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 } else if (nemico2.getHp() > 0) {
-                    esito = Personaggio.battle(player3, nemico2, null, null);
+                    esito = Personaggio.battle(membro_squadra3, nemico2, null, null);
                     if (nemico2.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico2.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player3.getHp() <= 0) {
-                        System.out.println(player3.getNome() + " è stato sconfitto!");
+                    if (membro_squadra3.getHp() <= 0) {
+                        System.out.println(membro_squadra3.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 } else if (nemico3.getHp() > 0) {
-                    esito = Personaggio.battle(player3, nemico3, null, null);
+                    esito = Personaggio.battle(membro_squadra3, nemico3, null, null);
                     if (nemico3.getHp() <= 0) {
                         System.out.println("Il prof. " + nemico3.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
-                    if (player3.getHp() <= 0) {
-                        System.out.println(player3.getNome() + " è stato sconfitto!");
+                    if (membro_squadra3.getHp() <= 0) {
+                        System.out.println(membro_squadra3.getNome() + " è stato sconfitto!");
                         Thread.sleep(1000);
                     }
                 }
@@ -196,12 +197,12 @@ public class Main {
 
         // GIOCATORI
         Personaggio player = new Personaggio();
-        Personaggio palmeri = new Personaggio("Palmeri", 100, 40, 10, 20, 100, 100, false);
-        Personaggio maruca = new Personaggio("Maruca", 100, 40, 10, 20, 100, 10, false);
-        Personaggio tanta = new Personaggio("Tanta", 100, 40, 10, 20, 60, 10, false);
-        Personaggio evan = new Personaggio("Evan", 100, 40, 10, 20, 60, 10, false);
-        Personaggio simo = new Personaggio("Simo", 100, 40, 10, 40, 60, 10, false);
-        Personaggio corvo = new Personaggio("Corvo", 100, 40, 10, 30, 60, 10, false);
+        Personaggio palmeri = new Personaggio("Palmeri", 150, 30, 20, 15, 100, 100, false);
+        Personaggio maruca = new Personaggio("Maruca", 80, 60, 8, 25, 100, 20, false);
+        Personaggio tanta = new Personaggio("Tanta", 100, 45, 12, 20, 80, 10, false);
+        Personaggio evan = new Personaggio("Evan", 90, 40, 10, 30, 70, 10, false);
+        Personaggio simo = new Personaggio("Simo", 95, 50, 8, 40, 120, 30, false);
+        Personaggio corvo = new Personaggio("Corvo", 85, 45, 15, 22, 90, 0, false);
 
         while (true) {
             System.out.println("Scegli il tuo personaggio :");
@@ -265,12 +266,12 @@ public class Main {
         int scelta;
         Personaggio prof = new Personaggio();
 
-        Personaggio cerello = new Personaggio("Cerello", 100, 40, 10, 20, 60, 10, true);
-        Personaggio micheletti = new Personaggio("Micheletti", 100, 40, 10, 20, 120, 10, true);
-        Personaggio tacca = new Personaggio("Tacca", 100, 40, 10, 20, 40, 10, true);
-        Personaggio mora = new Personaggio("Mora", 100, 40, 10, 40, 60, 10, true);
-        Personaggio scampini = new Personaggio("Scampini", 100, 40, 10, 20, 60, 10, true);
-        Personaggio majnetti = new Personaggio("Majnetti", 100, 40, 10, 30, 60, 10, true);
+        Personaggio Micheletti = new Personaggio("Micheletti", 140, 35, 18, 15, 100, 30, true);
+        Personaggio Cerello = new Personaggio("Cerello", 85, 55, 10, 25, 80, 10, true);
+        Personaggio Mora = new Personaggio("Mora", 90, 45, 8, 35, 70, 10, true);
+        Personaggio Tacca = new Personaggio("Tacca", 100, 40, 12, 20, 90, 20, true);
+        Personaggio Scampini = new Personaggio("Scampini", 95, 42, 14, 22, 85, 10, true);
+        Personaggio Majnetti = new Personaggio("Majnetti", 110, 38, 15, 18, 100, 0, true);
 
         while (true) {
             scelta = rand.nextInt(7);
@@ -278,22 +279,22 @@ public class Main {
             prof = switch (scelta) {
 
                 case 1 -> {
-                    yield cerello;
+                    yield Cerello;
                 }
                 case 2 -> {
-                    yield micheletti;
+                    yield Micheletti;
                 }
                 case 3 -> {
-                    yield tacca;
+                    yield Tacca;
                 }
                 case 4 -> {
-                    yield mora;
+                    yield Mora;
                 }
                 case 5 -> {
-                    yield scampini;
+                    yield Scampini;
                 }
                 default -> {
-                    yield majnetti;
+                    yield Majnetti;
                 }
 
             };

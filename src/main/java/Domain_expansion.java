@@ -24,7 +24,7 @@ public class Domain_expansion {
             attaccante.setPrecisione(attaccante.getPrecisione() * 2);
             attaccante.setSpeed(attaccante.getSpeed() * 2);
         } else {
-            System.out.println(rand.nextInt(10));
+            System.out.println(rand.nextInt(7));
             Thread.sleep(1500);
             System.out.println("Palmeri non ha vinto il jackpot!");
             attaccante.setHp(attaccante.getHp() / 2);
@@ -37,6 +37,7 @@ public class Domain_expansion {
 
     public static void cerello_pose(){
         System.out.println("Cerello usa la sua DOMAIN EXPANSION : CERELLO POSE!");
+
 
     }
 

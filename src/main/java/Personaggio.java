@@ -151,13 +151,58 @@ public class Personaggio {
                         scanner.nextLine();
                         continue;
                     } else if (scelta == 5) {
-                        player2.stats();
+                        System.out.println("Quale giocatore vuoi analizzare?");
+                        System.out.println("1. " + Main.membro_squadra.nome);
+                        System.out.println("2. " + Main.membro_squadra2.nome);
+                        System.out.println("3. " + Main.membro_squadra3.nome);
+                        System.out.println("4. " + Main.nemico.nome);
+                        System.out.println("5. " + Main.nemico2.nome);
+                        System.out.println("6. " + Main.nemico3.nome);
+                        int scelta_giocatore = scanner.nextInt();
+                        switch (scelta_giocatore) {
+                            case 1 ->
+                                Main.membro_squadra.stats();
+                            case 2 ->
+                                Main.membro_squadra2.stats();
+                            case 3 ->
+                                Main.membro_squadra3.stats();
+                            case 4 ->
+                                Main.nemico.stats();
+                            case 5 ->
+                                Main.nemico2.stats();
+                            case 6 ->
+                                Main.nemico3.stats();
+                        }
                         System.out.println("\nPremi un tasto per continuare...");
                         scanner.nextLine();
                         scanner.nextLine();
                         continue;
                     } else if (scelta == 6) {
                         System.out.println("con chi vuoi cambiare di turno?");
+                        System.out.println("1. " + Main.membro_squadra.nome);
+                        System.out.println("2. " + Main.membro_squadra2.nome);
+                        System.out.println("3. " + Main.membro_squadra3.nome);
+                        int scelta_giocatore = scanner.nextInt();
+                        if (scelta_giocatore == 1) {
+                            System.out.println("Non puoi cambiare di turno con te stesso!");
+                            Thread.sleep(1000);
+                            continue;
+                        } else if (scelta_giocatore == 2) {
+                            Main.giocatore_temp = Main.membro_squadra2;
+                            Main.membro_squadra2 = Main.membro_squadra;
+                            Main.membro_squadra = Main.giocatore_temp;
+                        } else if (scelta_giocatore == 3) {
+                            Main.giocatore_temp = Main.membro_squadra3;
+                            Main.membro_squadra3 = Main.membro_squadra;
+                            Main.membro_squadra = Main.giocatore_temp;
+                        } else {
+                            System.out.println("Scelta non valida!");
+                            Thread.sleep(1000);
+                            continue;
+                        }
+                        System.out.println("Cambio avvenuto con successo!");
+                        Thread.sleep(1000);
+                        break;
                         
                     } else if (scelta == 7) {
                         if (player.domain_expansion < 100) {
@@ -192,10 +237,12 @@ public class Personaggio {
                             break;
                         }
                     } else if (scelta == 4) {
-                        continue;
+                        continue; // informazioni
                     } else if (scelta == 5) {
-                        continue;
+                        continue; // analisi
                     } else if (scelta == 6) {
+                        continue; // cambio
+                    } else if (scelta == 7) {
                         if (player.domain_expansion < 100 ) {
                             //System.out.println("BLOCCATO!!");
                             //Thread.sleep(1000);
