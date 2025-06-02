@@ -5,7 +5,6 @@ public class Attacchi_speciali {
         difesa.setAtk(difesa.getAtk() - difesa.getHp() / 2);// modifica
     }
 
-
     public static void sfortuna_cieca(Personaggio attaccante, Personaggio difesa){
         System.out.println("Palmeri usa il suo attacco speciale : sfortuna_cieca!");
         System.out.println("La precisione del nemico è calata del 25%!");
@@ -14,11 +13,6 @@ public class Attacchi_speciali {
     }
 
     public static void attacco_speciale2(Personaggio attaccante, Personaggio difesa){
-        System.out.println("Attacco speciale!");
-        Personaggio.attack(attaccante, difesa, true, 10);
-    }
-
-    public static void trinomio_speciale(Personaggio attaccante, Personaggio difesa){
         System.out.println("Attacco speciale!");
         Personaggio.attack(attaccante, difesa, true, 10);
     }

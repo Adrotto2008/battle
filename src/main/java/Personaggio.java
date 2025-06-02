@@ -1,8 +1,8 @@
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -10,6 +10,8 @@ import java.util.Random;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Personaggio {
+
+
 
     //variabili personali
     private String nome;
@@ -23,17 +25,16 @@ public class Personaggio {
     private float sp;
     private boolean prof;
     private float domain_expansion;
-    private boolean can_domain;
+    private String arma;
 
     private float percentuale_gambler;
-    private int turno_bloccati;
 
     //variabili globali
     private static boolean prima_mossa = true;
     private static int turno_di;
 
     //inizializzazione variabili
-    public Personaggio (String nome,  float hp, float atk, float def, float speed, float sp, float domain_expansion, boolean prof) {
+    public Personaggio (String nome,  float hp, float atk, float def, float speed, float sp, float domain_expansion, boolean prof,String arma) {
         this.nome = nome;
         this.hp = hp;
         this.hp_backup = hp;
@@ -44,11 +45,10 @@ public class Personaggio {
         this.speed = speed;
         this.sp = sp;
         this.domain_expansion = domain_expansion;
-        this.can_domain = true;
         this.prof = prof;
+        this.arma = arma;
 
         this.percentuale_gambler = 40;
-        this.turno_bloccati = 0;
     }
 
     public void stats() {
@@ -102,119 +102,108 @@ public class Personaggio {
     public static void defend(Personaggio difesa) {
         defend(difesa, false);
     }
-    
+
     public static void menu(Personaggio player, Personaggio player2) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         Random rand = new Random();
         int scelta;
 
         System.out.println("--------------------------------------");
-        if( player.turno_bloccati > 0 ){
-            System.out.println(player.nome + " è troppo confuso per agire!");
-        } else {
-            if (!player.prof) {
-                while (true) {
-                    System.out.println("Turno di " + player.nome + "!!\n");
-                    System.out.println("1. Attacco");
-                    System.out.println("2. Difesa");
-                    System.out.println("3. Attacco speciale");
-                    System.out.println("4. Informazioni");
-                    System.out.println("5. Analisi");
-                    System.out.println("6. cambio");
-                    if (player.domain_expansion >= 100 && player.can_domain) {
-                        System.out.println("7. DOMAIN EXPANSION");
+        if(!player.prof){
+            while(true){
+                System.out.println("Turno di " + player.nome + "!!\n");
+                System.out.println("1. Attacco");
+                System.out.println("2. Difesa");
+                System.out.println("3. Attacco speciale");
+                System.out.println("4. Informazioni");
+                System.out.println("5. Analisi");
+                if(player.domain_expansion >= 100){ System.out.println("6. DOMAIN EXPANSION"); }
+                System.out.println("Seleziona un'azione: ");
+
+                scelta = scanner.nextInt();
+
+                if (scelta == 1) {
+                    attack(player, player2, true);
+                    break;
+                } else if (scelta == 2) {
+                    defend(player, true);
+                    break;
+                } else if (scelta == 3) {
+                    if(player.sp < 100) {
+                        System.out.println("Punti speciali insufficienti!");
+                        Thread.sleep(1000);
+                        continue;
+                    } else {
+                        elenco_attacchi_speciali(player, player2);
                     }
-                    System.out.println("Seleziona un'azione: ");
-
-                    scelta = scanner.nextInt();
-                    Thread.sleep(1000);
-
-                    if (scelta == 1) {
-                        attack(player, player2, true);
-                        break;
-                    } else if (scelta == 2) {
-                        defend(player, true);
-                        break;
-                    } else if (scelta == 3) {
-                        if (player.sp < 100) {
-                            System.out.println("Punti speciali insufficienti!");
-                            Thread.sleep(1000);
-                            continue;
-                        } else {
-                            elenco_attacchi_speciali(player, player2);
-                        }
-                        break;
-                    } else if (scelta == 4) {
-                        player.stats();
-                        System.out.println("\nPremi un tasto per continuare...");
-                        scanner.nextLine();
-                        scanner.nextLine();
+                    break;
+                } else if (scelta == 4) {
+                    player.stats();
+                    System.out.println("\nPremi un tasto per continuare...");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                    continue;
+                } else if (scelta == 5){
+                    player2.stats();
+                    System.out.println("\nPremi un tasto per continuare...");
+                    scanner.nextLine();
+                    scanner.nextLine();
+                    continue;
+                } else if (scelta == 6){
+                    if(player.domain_expansion < 100){
+                        System.out.println("BLOCCATO!!");
+                        Thread.sleep(1000);
                         continue;
-                    } else if (scelta == 5) {
-                        player2.stats();
-                        System.out.println("\nPremi un tasto per continuare...");
-                        scanner.nextLine();
-                        scanner.nextLine();
-                        continue;
-                    } else if (scelta == 6) {
-                        System.out.println("con chi vuoi cambiare di turno?");
-                        
-                    } else if (scelta == 7) {
-                        if (player.domain_expansion < 100) {
-                            System.out.println("BLOCCATO!!");
-                            Thread.sleep(1000);
-                            continue;
-                        } else {
-                            elenco_domain_expansion(player, player2);
-                        }
+                    }  else {
+                        elenco_domain_expansion(player, player2);
                     }
                 }
-            } else {
-
-                while (true) { // scusa scampini
-                    scelta = rand.nextInt(7) + 1;
-
-                    if (scelta == 1) {
-                        System.out.println(player.nome + " attacca!");
-                        attack(player, player2, true);
-                        break;
-                    } else if (scelta == 2) {
-                        System.out.println(player.nome + " si difende!");
-                        defend(player, true);
-                        break;
-                    } else if (scelta == 3) {
-                        if (player.sp < 100) {
-                            //System.out.println("Punti speciali insufficienti!");
-                            //Thread.sleep(1000);
-                            continue;
-                        } else {
-                            elenco_attacchi_speciali(player, player2);
-                            break;
-                        }
-                    } else if (scelta == 4) {
-                        continue;
-                    } else if (scelta == 5) {
-                        continue;
-                    } else if (scelta == 6) {
-                        if (player.domain_expansion < 100 ) {
-                            //System.out.println("BLOCCATO!!");
-                            //Thread.sleep(1000);
-                            continue;
-                        } else {
-                            elenco_domain_expansion(player, player2);
-                        }
-                    }
-                }
-
             }
+
+        } else {
+
+            while(true){ // scusa scampini
+                scelta = rand.nextInt(7) + 1;
+
+                if (scelta == 1) {
+                    System.out.println(player.nome + " attacca!");
+                    attack(player, player2, true);
+                    break;
+                } else if (scelta == 2) {
+                    System.out.println(player.nome + " si difende!");
+                    defend(player, true);
+                    break;
+                } else if (scelta == 3) {
+                    if(player.sp < 100) {
+                        //System.out.println("Punti speciali insufficienti!");
+                        //Thread.sleep(1000);
+                        continue;
+                    } else {
+                        elenco_attacchi_speciali(player, player2);
+                    }
+                    break;
+                } else if (scelta == 4) {
+                    continue;
+                } else if (scelta == 5){
+                    continue;
+                } else if (scelta == 6){
+                    if(player.domain_expansion < 100){
+                        //System.out.println("BLOCCATO!!");
+                        //Thread.sleep(1000);
+                        continue;
+                    }  else {
+                        elenco_domain_expansion(player, player2);
+                    }
+                }
+            }
+
         }
-        player.turno_bloccati--;
         player.domain_expansion += 10;
         System.out.println(player.nome + " ha guadagnato 10 punti per la domain expansion!");
         System.out.println("--------------------------------------");
     }
-    
-    
+
+
     public static int battle(Personaggio player1, Personaggio player2, Personaggio player3, Personaggio player4) throws InterruptedException {
         if ( player3 == null && player4 == null ){
             if(prima_mossa) {
@@ -235,7 +224,7 @@ public class Personaggio {
                     turno_di = 1;
                 }
             }
-            
+
         } else {
             return 3;
         }
@@ -249,26 +238,6 @@ public class Personaggio {
 
     public static int battle(Personaggio player1, Personaggio player2) throws InterruptedException {
         return battle(player1, player2, null, null);
-    }
-
-    public static void elenco_abilita_passive(Personaggio player, Personaggio difesa){
-
-        switch (player.nome) {
-            // GIOCATORI
-            case "Palmeri" -> Attacchi_speciali.sfortuna_cieca(player, difesa);
-            case "Maruca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Tanta" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Evan" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Simo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Corvo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            // PROF
-            case "Cerello" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Micheletti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Tacca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Mora" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Scampini" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-            case "Majnetti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-        }
     }
 
     public static void elenco_attacchi_speciali(Personaggio player, Personaggio difesa){
@@ -295,31 +264,23 @@ public class Personaggio {
 
     public static void elenco_domain_expansion(Personaggio player, Personaggio difesa) throws InterruptedException {
 
-        if(!player.can_domain){
-            System.out.println( player.nome + " ha già usato la sua domain expansion!");
-        } else {
-            player.domain_expansion = 0;
-            player.can_domain = false;
-            switch (player.nome) {
-                // GIOCATORI
-                case "Palmeri" -> Domain_expansion.gambler_nato(player, difesa);
-                case "Maruca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Tanta" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Evan" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Simo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Corvo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                // PROF
-                case "Cerello" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Micheletti" -> Domain_expansion.circuito_aperto(player, difesa);
-                case "Tacca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Mora" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Scampini" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-                case "Majnetti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
-
-
-            }
+        player.domain_expansion = 0;
+        switch (player.nome) {
+            // GIOCATORI
+            case "Palmeri" -> Domain_expansion.gambler_nato(player, difesa);
+            case "Maruca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Tanta" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Evan" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Simo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Corvo" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            // PROF
+            case "Cerello" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Micheletti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Tacca" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Mora" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Scampini" -> Attacchi_speciali.attacco_speciale2(player, difesa);
+            case "Majnetti" -> Attacchi_speciali.attacco_speciale2(player, difesa);
         }
-
 
 
     }
